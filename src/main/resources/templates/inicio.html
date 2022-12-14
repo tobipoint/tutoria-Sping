@@ -34,7 +34,7 @@
 
         <h3 th:if="${session.usuariosession == null}"> Usted no esta registrado, solo podra ver los productos </h3>
 
-        <a sec:authorize="hasRole('ADMIN')" th:href="@{/producto/crear}" class="card-link">AÑADIR UN PRODUCTO</a>
+        <a sec:authorize="hasRole('DUEÑO')" th:href="@{/producto/crear}" class="card-link">AÑADIR UN PRODUCTO</a>
 
         <div class="card" style="width: 18rem;" th:each= "productos: ${productos}" >
 
@@ -45,16 +45,16 @@
                 <p class="card-text" th:text="${productos.marca}"></p>
             </div>
             <ul class="list-group list-group-flush" >
-                <li class="list-group-item" th:text="${productos.talle}"></li>
-                <li class="list-group-item" th:text="${productos.material}"></li>
-                <li class="list-group-item" th:text="${productos.precio}"></li>
-                <li class="list-group-item" th:text="${productos.id}"></li>
+                <li class="list-group-item" th:text="${productos.tamano}"></li>
+                <li class="list-group-item" th:text="${productos.material}"> </li>
+                <li class="list-group-item" th:text="${productos.precio}"  ></li>
+
             </ul>
             <div class="card-body">
 
-                <li>  <a sec:authorize="hasRole('DUEÑO')" th:href="@{/producto/editar}'" class="card-link">Modifiar</a> </li>
-                <li>  <a  sec:authorize="hasRole('DUEÑO')" th:href="@{/producto/eliminar/__${productos.id}__}" class="card-link">Eliminar</a ></li>
-                <li>  <a  sec:authorize="hasRole('CLIENTE')" th:href="@{/producto/comprar/__${productos.id}__}" class="card-link">Comprar</a ></li>
+                <a sec:authorize="hasRole('CLIENTE')" th:href="@{/producto/comprar/__${productos.id}__}" class="card-link">Comprar</a >
+                <a sec:authorize="hasRole('DUEÑO')" th:href="@{/producto/eliminar/__${productos.id}__}" class="card-link">Eliminar</a>
+                <a sec:authorize="hasRole('DUEÑO')" th:href="@{/producto/editar/__${productos.id}__}" class="card-link">Editar</a>
             </div>
         </div>
 

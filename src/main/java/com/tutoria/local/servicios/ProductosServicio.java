@@ -20,14 +20,14 @@ public class ProductosServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void añadirProducto(MultipartFile archivo, String tipo,String marca, int precio, String tamaño, String material) throws excepciones {
-        validar(tipo, precio, tamaño, material);
+    public void añadirProducto(MultipartFile archivo, String tipo, String marca, int precio, String tamano, String material) throws excepciones {
+        validar(tipo, precio, tamano, material);
         Productos producto = new Productos();
 
         try {
             producto.setMaterial(material);
             producto.setPrecio(precio);
-            producto.setTamaño(tamaño);
+            producto.setTamano(tamano);
             producto.setTipo(tipo);
             producto.setMarca(marca);
             Imagen imagen = imagenServicio.guardar(archivo);
@@ -40,7 +40,7 @@ public class ProductosServicio {
 
     }
 
-    public void validar(String tipo, int precio, String tamaño, String material) throws excepciones {
+    public void validar(String tipo, int precio, String tamano, String material) throws excepciones {
         if (tipo == null) {
             throw new excepciones("tipo invalido");
         }
@@ -48,34 +48,37 @@ public class ProductosServicio {
         if (material == null) {
             throw new excepciones("material invalido");
         }
-        if (tamaño == null) {
+        if (tamano == null) {
             throw new excepciones(" tamaño invalido");
         }
     }
 
-    public void acutalizar(String tipo, int precio, String tamaño, int talle, String color, String material) throws excepciones {
+    @Transactional
+    public void acutalizar(String tipo, int precio, String tamano, int talle, String color, String material) throws excepciones {
         validar(tipo, precio, tipo, material);
 
         Productos producto = new Productos();
         producto.setMaterial(material);
         producto.setPrecio(precio);
-        producto.setTamaño(tamaño);
+        producto.setTamano(tamano);
         producto.setTipo(tipo);
         productosRepositorio.save(producto);
 
     }
 
     public List<Productos> listar() {
-        List <Productos> lista = productosRepositorio.findAll();
+        List<Productos> lista = productosRepositorio.findAll();
 
         return lista;
     }
 
+    @Transactional
     public Productos getOne(String id) {
         Productos producto = productosRepositorio.getOne(id);
         return producto;
     }
 
+    @Transactional
     public void eliminar(String id) {
         Productos producto = getOne(id);
         try {

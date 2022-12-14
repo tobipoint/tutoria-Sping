@@ -22,17 +22,19 @@ public class ProductoControlador {
     @Autowired
     private ProductosServicio productoServicio;
 
+    @PreAuthorize("hasAnyRole('ROLE_DUEÑO')")
     @GetMapping("/crear")
     public String crear() {
 
         return "crearProducto";
     }
 
+   
     @PostMapping("/cargar")
     public String cargar(@RequestParam MultipartFile archivo, @RequestParam String tipo, @RequestParam String marca,
-            @RequestParam int precio, @RequestParam String tamaño, @RequestParam String material, ModelMap modelo) throws excepciones {
+            @RequestParam int precio, @RequestParam String tamano, @RequestParam String material, ModelMap modelo) throws excepciones {
         try {
-            productoServicio.añadirProducto(archivo, tipo, marca, precio, tamaño, material);
+            productoServicio.añadirProducto(archivo, tipo, marca, precio, tamano, material);
             modelo.put("exito", "el producto se cargo con exito");
             return "redirect:/inicio";
         } catch (excepciones e) {
@@ -41,7 +43,8 @@ public class ProductoControlador {
         }
     }
 
-    @GetMapping("/editar/{id}") //localhost8080/Noticia/editar
+    @PreAuthorize("hasAnyRole('ROLE_DUEÑO')")
+    @GetMapping("/editar/{id}")
     public String NoticiaEditar(@PathVariable String id, ModelMap modelo) throws excepciones {
         Productos producto = productoServicio.getOne(id);
         modelo.addAttribute("producto", producto);
@@ -51,11 +54,11 @@ public class ProductoControlador {
 
     @PostMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, @RequestParam MultipartFile archivo, @RequestParam String tipo,
-            @RequestParam int precio, @RequestParam String tamaño, @RequestParam String material, ModelMap modelo) throws excepciones {
+            @RequestParam int precio, @RequestParam String tamano, @RequestParam String material, ModelMap modelo) throws excepciones {
         try {
             Productos noticias = productoServicio.getOne(id);
             modelo.addAttribute("noticias", noticias);
-            productoServicio.acutalizar(tipo, precio, tamaño, precio, tipo, material);
+            productoServicio.acutalizar(tipo, precio, tamano, precio, tipo, material);
             return "redirect:/inicio";
         } catch (excepciones e) {
             List<Productos> producto = productoServicio.listar();
@@ -64,13 +67,15 @@ public class ProductoControlador {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_DUEÑO')")
     @GetMapping("/eliminar/{id}")
     public String productoEliminar(@PathVariable String id, ModelMap modelo) throws excepciones {
-        modelo.put("noticias", productoServicio.getOne(id));
+        modelo.put("productos", productoServicio.getOne(id));
 
-        return "eliminarNoticia";
+        return "eliminarProducto";
     }
 
+    
     @PostMapping("/darDeBaja/{id}")
     public String Eliminar(@PathVariable String id, ModelMap modelo) throws excepciones {
         System.out.println("eliminando...");

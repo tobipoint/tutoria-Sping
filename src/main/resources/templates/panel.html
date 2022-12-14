@@ -22,22 +22,25 @@
 
         <button sec:authorize="hasRole('ROLE_DUEÑO')" onclick="location.href='producto/crear'" class="card-link">AÑADIR UN PRODUCTO</button>
 
-        <div class="card" style="width: 18rem;" th:each="productos: ${productos}" >
+        <div class="card" style="width: 18rem;" th:each= "productos: ${productos}" >
+
             <img th:src="@{/imagen/producto/__${productos.id}__}" class="card-img-top" alt="imagen ilustrativa">
+
             <div class="card-body">
-                <h5 class="card-title">tipo</h5>
-                <p class="card-text">marca</p>
+                <h5 class="card-title" th:text="${productos.tipo}"></h5>
+                <p class="card-text" th:text="${productos.marca}"></p>
             </div>
             <ul class="list-group list-group-flush" >
-                <li class="list-group-item" th:text="${productos.tamaño}"></li>
+                <li class="list-group-item" th:text="${productos.tamano}"></li>
                 <li class="list-group-item" th:text="${productos.material}"></li>
-                <li class="list-group-item" th:text="${productos.talle}"></li>
                 <li class="list-group-item" th:text="${productos.precio}"></li>
+              
             </ul>
             <div class="card-body">
-                <button sec:authorize="hasRole('ROLE_DUEÑO')" onclick="location.href='producto/editar/{producto.id}'" class="card-link">Modifiar</button>
-                <button sec:authorize="hasRole('ROLE_DUEÑO')" onclick="location.href='producto/eliminar/{producto.id}'" class="card-link">Eliminar</button>
-                <button sec:authorize="hasRole('ROLE_CLIENTE')" onclick="location.href='producto/comprar'" class="card-link">Comprar</button>
+
+                <a sec:authorize="hasRole('DUEÑO')" th:href="@{/producto/editar/__${productos.id}__}'" class="card-link">Modifiar</a> 
+                <a sec:authorize="hasRole('DUEÑO')" th:href="@{/producto/eliminar/__${productos.id}__}" class="card-link">Eliminar</a >
+                <a sec:authorize="hasRole('CLIENTE')" th:href="@{/producto/comprar/__${productos.id}__}" class="card-link">Comprar</a >
             </div>
         </div>
 

@@ -15,7 +15,7 @@ public class Productos {
     private String id;
     private String tipo;
     private int precio;
-    private String tamaño;
+    private String tamano;
     private int talle;
     private String marca;
     private String material;
@@ -61,12 +61,12 @@ public class Productos {
         this.precio = precio;
     }
 
-    public String getTamaño() {
-        return tamaño;
+    public String getTamano() {
+        return tamano;
     }
 
-    public void setTamaño(String tamaño) {
-        this.tamaño = tamaño;
+    public void setTamano(String tamano) {
+        this.tamano = tamano;
     }
 
     public int getTalle() {
