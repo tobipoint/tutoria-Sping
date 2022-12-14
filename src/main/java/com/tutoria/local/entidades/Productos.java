@@ -12,11 +12,12 @@ public class Productos {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
     private String tipo;
     private int precio;
     private String tamaño;
     private int talle;
-    private String color;
+    private String marca;
     private String material;
     @OneToOne
     private Imagen imagen;
@@ -24,6 +25,15 @@ public class Productos {
     public Productos() {
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    
     public Imagen getImagen() {
         return imagen;
     }
@@ -67,12 +77,12 @@ public class Productos {
         this.talle = talle;
     }
 
-    public String getColor() {
-        return color;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public String getMaterial() {

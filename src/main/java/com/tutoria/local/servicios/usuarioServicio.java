@@ -36,7 +36,7 @@ public class usuarioServicio implements UserDetailsService {
         
         usuario.setNombre(nombre);
         
-        if (nombre.equals("ADMIN")) {
+        if (nombre.equals("admin")) {
         usuario.setRol(Rol.DUEÑO);    
         }else{
             usuario.setRol(Rol.CLIENTE);

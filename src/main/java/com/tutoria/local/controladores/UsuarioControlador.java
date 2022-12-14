@@ -34,7 +34,7 @@ public class UsuarioControlador {
             usuarioServicio.crearUsuario(nombre, email, password, password2);
            
             modelo.put("exito", "usuario agregado");
-            return "index";
+            return "login";
         } catch (excepciones e) {
             modelo.put("error", e.getMessage());
             return "userForm";

@@ -21,7 +21,6 @@ public class ImagenControlador {
     
     @GetMapping("/producto/{id}")
      public ResponseEntity<byte[]> noticiaUsuario(@PathVariable String id) {
-        System.out.println("procesando imagen");
         Productos producto = productosServicio.getOne(id);
         byte[] imagen = producto.getImagen().getContenido();
         HttpHeaders headers = new HttpHeaders();

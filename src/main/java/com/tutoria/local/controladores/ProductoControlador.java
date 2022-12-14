@@ -29,12 +29,12 @@ public class ProductoControlador {
     }
 
     @PostMapping("/cargar")
-    public String cargar(@RequestParam MultipartFile archivo, @RequestParam String tipo,
+    public String cargar(@RequestParam MultipartFile archivo, @RequestParam String tipo, @RequestParam String marca,
             @RequestParam int precio, @RequestParam String tamaño, @RequestParam String material, ModelMap modelo) throws excepciones {
         try {
-            productoServicio.añadirProducto(archivo, tipo, precio, tamaño, material);
+            productoServicio.añadirProducto(archivo, tipo, marca, precio, tamaño, material);
             modelo.put("exito", "el producto se cargo con exito");
-            return "inicio";
+            return "redirect:/inicio";
         } catch (excepciones e) {
             modelo.put("error", "el producto no se ha cargado");
             return "crearProducto";

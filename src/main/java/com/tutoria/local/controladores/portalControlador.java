@@ -20,10 +20,10 @@ public class portalControlador {
     @Autowired
     private ProductosServicio ProductosServicio;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index() {
 
-        return "inicio";
+        return "index";
     }
 
     @GetMapping("/login")
@@ -39,14 +39,13 @@ public class portalControlador {
     public String inicio(HttpSession session, ModelMap modelo) {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
 
-        if (logueado.getRol().toString().equals("ADMIN")) {
+        List<Productos> productos = ProductosServicio.listar();
+        modelo.put("productos", productos);
+
+        if (logueado.getRol().toString().equals("DUEÑO")) {
             return "redirect:/admin/dashboard";
         }
 
-        List <Productos> producto = ProductosServicio.listar();
-        modelo.put("producto", producto);
-        
-        
         return "inicio";
     }
 

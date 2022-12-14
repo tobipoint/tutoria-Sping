@@ -20,7 +20,7 @@ public class ProductosServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void añadirProducto(MultipartFile archivo, String tipo, int precio, String tamaño, String material) throws excepciones {
+    public void añadirProducto(MultipartFile archivo, String tipo,String marca, int precio, String tamaño, String material) throws excepciones {
         validar(tipo, precio, tamaño, material);
         Productos producto = new Productos();
 
@@ -29,6 +29,7 @@ public class ProductosServicio {
             producto.setPrecio(precio);
             producto.setTamaño(tamaño);
             producto.setTipo(tipo);
+            producto.setMarca(marca);
             Imagen imagen = imagenServicio.guardar(archivo);
             producto.setImagen(imagen);
 
@@ -65,7 +66,7 @@ public class ProductosServicio {
     }
 
     public List<Productos> listar() {
-        List lista = productosRepositorio.findAll();
+        List <Productos> lista = productosRepositorio.findAll();
 
         return lista;
     }

@@ -20,24 +20,24 @@
 
         <h5 th:if="${session.usuariosession != null}" th:text="${session.usuariosession.nombre}"> Bienvenido!! </h5>
 
-        <button sec:authorize="hasRole('DUEÑO')" onclick="location.href='producto/crear'" class="card-link">AÑADIR UN PRODUCTO</button>
+        <button sec:authorize="hasRole('ROLE_DUEÑO')" onclick="location.href='producto/crear'" class="card-link">AÑADIR UN PRODUCTO</button>
 
-        <div class="card" style="width: 18rem;" th:each="producto ${producto}" >
-            <img th:src="@{/imagen/producto/__${producto.id}__}" class="card-img-top" alt="imagen ilustrativa">
+        <div class="card" style="width: 18rem;" th:each="productos: ${productos}" >
+            <img th:src="@{/imagen/producto/__${productos.id}__}" class="card-img-top" alt="imagen ilustrativa">
             <div class="card-body">
                 <h5 class="card-title">tipo</h5>
                 <p class="card-text">marca</p>
             </div>
             <ul class="list-group list-group-flush" >
-                <li class="list-group-item" th:text="${producto.tamaño}"></li>
-                <li class="list-group-item" th:text="${producto.material}"></li>
-                <li class="list-group-item" th:text="${producto.talle}"></li>
-                <li class="list-group-item" th:text="${producto.precio}"></li>
+                <li class="list-group-item" th:text="${productos.tamaño}"></li>
+                <li class="list-group-item" th:text="${productos.material}"></li>
+                <li class="list-group-item" th:text="${productos.talle}"></li>
+                <li class="list-group-item" th:text="${productos.precio}"></li>
             </ul>
             <div class="card-body">
-                <button sec:authorize="hasRole('ADMIN')" onclick="location.href='producto/editar/{producto.id}'" class="card-link">Modifiar</button>
-                <button sec:authorize="hasRole('ADMIN')" onclick="location.href='producto/eliminar/{producto.id}'" class="card-link">Eliminar</button>
-                <button sec:authorize="hasRole('CLIENTE')" onclick="location.href='producto/comprar'" class="card-link">Comprar</button>
+                <button sec:authorize="hasRole('ROLE_DUEÑO')" onclick="location.href='producto/editar/{producto.id}'" class="card-link">Modifiar</button>
+                <button sec:authorize="hasRole('ROLE_DUEÑO')" onclick="location.href='producto/eliminar/{producto.id}'" class="card-link">Eliminar</button>
+                <button sec:authorize="hasRole('ROLE_CLIENTE')" onclick="location.href='producto/comprar'" class="card-link">Comprar</button>
             </div>
         </div>
 
