@@ -28,28 +28,47 @@ public class usuarioServicio implements UserDetailsService {
     @Autowired
     private usuarioRepositorio usuarioRepositorio;
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
+
+        if (usuario != null) {
+            List<GrantedAuthority> permisos = new ArrayList();
+            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
+            permisos.add(p);
+
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attr.getRequest().getSession(true);
+            session.setAttribute("usuariosession", usuario);
+
+            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+        } else {
+            return null;
+        }
+    }
+
     @Transactional
     public void crearUsuario(String nombre, String email, String password, String password2) throws excepciones {
         System.out.println("vamos a validar los datosS");
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
-        
+
         usuario.setNombre(nombre);
-        
+
         if (nombre.equals("admin")) {
-        usuario.setRol(Rol.DUEÑO);    
-        }else{
+            usuario.setRol(Rol.DUEÑO);
+        } else {
             usuario.setRol(Rol.CLIENTE);
         }
-        
+
         usuario.setEmail(email);
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
-        
+
         usuarioRepositorio.save(usuario);
     }
 
     @Transactional
-    private void validar( String nombre, String email, String password, String password2) throws excepciones {
+    private void validar(String nombre, String email, String password, String password2) throws excepciones {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new excepciones("nombre nulo");
@@ -90,25 +109,6 @@ public class usuarioServicio implements UserDetailsService {
         return lista;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-
-        if (usuario != null) {
-            List<GrantedAuthority> permisos = new ArrayList();
-            GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-            permisos.add(p);
-
-            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            HttpSession session = attr.getRequest().getSession(true);
-            session.setAttribute("usuariosession", usuario);
-
-            return new User(usuario.getEmail(), usuario.getPassword(), permisos);
-        } else {
-            return null;
-        }
-    }
-
     @Transactional
     public void cambiarRol(String id) {
         Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
@@ -126,5 +126,4 @@ public class usuarioServicio implements UserDetailsService {
         }
     }
 
-    
 }

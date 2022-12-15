@@ -8,6 +8,8 @@
 
     </head>
     <body>
+        <nav th:replace= "/fragments/navBar :: nav"> </nav> 
+        
         <div> 
             <h4> ¡Bienvenido, vamos a crear un usuario! </h4>
             <form th:action="@{/usuario/registro}" method="POST">

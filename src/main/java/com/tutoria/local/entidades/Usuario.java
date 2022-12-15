@@ -1,7 +1,6 @@
 package com.tutoria.local.entidades;
 
 import com.tutoria.local.enums.Rol;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,20 +19,10 @@ public class Usuario {
     private String password;
     @Enumerated(EnumType.STRING)
     private Rol rol;
-    @OneToMany
-    private List<Productos> carrito;
+ 
 
     public Usuario() {
     }
-
-    public List<Productos> getCarrito() {
-        return carrito;
-    }
-
-    public void setCarrito(List<Productos> carrito) {
-        this.carrito = carrito;
-    }
-
     
     public String getId() {
         return id;

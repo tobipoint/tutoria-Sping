@@ -3,15 +3,16 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
     </head>
     <body>
 
-        <h4>¿Seguro que desea elimiar este Producto? </h4>
+        <nav th:replace= "/fragments/navBar :: nav"></nav>  
+        
+        <h4>¿Seguro que desea elimiar este Producto?</h4>
 
         <form th:action="@{/producto/darDeBaja/__${id}__}" method="Post"> 
-
             <div class="card" style="width: 18rem;" th:each= "productos: ${productos}" >
-
                 <img th:src="@{/imagen/producto/__${productos.id}__}" class="card-img-top" alt="imagen ilustrativa">
                 <div>
                     <div class="card-body">
@@ -24,9 +25,8 @@
                         <li class="list-group-item" th:text="${productos.precio}"  ></li>
                     </ul>
                 </div>
-
                 <button type="submit" style="background-color: red" > Eliminar Producto </button>
         </form>
-
+        
     </body>
 </html>

@@ -1,5 +1,4 @@
-
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> 
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
@@ -12,6 +11,8 @@
 
     </head>
     <body>
+        <nav th:replace= "/fragments/navBar :: nav"> </nav>  
+        
         <div> 
             <form action="/producto/cargar" method="Post" enctype="multipart/form-data">
                 <div> 

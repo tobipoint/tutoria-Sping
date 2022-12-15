@@ -45,7 +45,7 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter{
                 .logoutSuccessUrl("/login")
                 .permitAll()
             .and().csrf() // Cross-Site Request Forgery
-                .disable();
+                .disable(); 
     }
 
 }

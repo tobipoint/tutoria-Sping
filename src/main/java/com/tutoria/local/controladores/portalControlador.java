@@ -21,8 +21,9 @@ public class portalControlador {
     private ProductosServicio ProductosServicio;
 
     @GetMapping("/")
-    public String index() {
-
+    public String index(ModelMap modelo) {
+        List<Productos> productos = ProductosServicio.listar();
+        modelo.put("productos", productos);
         return "index";
     }
 
