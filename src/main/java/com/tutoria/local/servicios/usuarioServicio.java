@@ -42,6 +42,7 @@ public class usuarioServicio implements UserDetailsService {
             session.setAttribute("usuariosession", usuario);
 
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
+            // Usuario del dominio de spring
         } else {
             return null;
         }
